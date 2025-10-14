@@ -2,15 +2,15 @@
 #define CORE_STATE_H
 
 #include "core_common.h"
-#include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef struct {
     core_mode_t mode;
     uint8_t *rom;
     size_t rom_size;
 
-    // native framebuffer pointer (owned)
+    // native framebuffer pointer
     pixel_t *framebuffer;
     size_t fb_width;
     size_t fb_height;
@@ -18,9 +18,6 @@ typedef struct {
     // cycle accounting
     uint64_t cycles_per_frame;
     uint64_t cycles_accum;
-
-    // memory
-    // mmu functions are provided in mmu.c
 } core_state_t;
 
 void core_init_state(core_state_t *cs, core_mode_t mode);
