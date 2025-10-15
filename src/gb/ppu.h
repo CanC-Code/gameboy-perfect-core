@@ -1,16 +1,12 @@
-#ifndef MMU_H
-#define MMU_H
+#ifndef GB_PPU_H
+#define GB_PPU_H
 
-#include <stdint.h>
-#include <stddef.h>
-#include "core_common.h"
+typedef struct gb_ppu_s {
+    // Example PPU state
+    unsigned char vram[0x2000];
+    unsigned char lcd_control;
+} gb_ppu_t;
 
-void mmu_init(core_mode_t mode, const uint8_t *rom, size_t rom_size);
-uint8_t mmu_read8(uint32_t addr);
-void mmu_write8(uint32_t addr, uint8_t val);
+void gb_ppu_reset( gb_ppu_t *ppu );
 
-// For convenience in CPU stubs
-const uint8_t* mmu_get_rom_ptr(void);
-size_t mmu_get_rom_size(void);
-
-#endif // MMU_H
+#endif // GB_PPU_H

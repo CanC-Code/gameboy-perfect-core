@@ -1,27 +1,62 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.15)
 project(gameboy_perfect_core C)
 
 set(CMAKE_C_STANDARD 11)
-set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
-set(INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Sources
-file(GLOB COMMON_SOURCES "${SRC_DIR}/common/*.c")
-file(GLOB GB_SOURCES "${SRC_DIR}/gb/*.c")
-file(GLOB GBA_SOURCES "${SRC_DIR}/gba/*.c")
+# Set output library name
+set(LIB_NAME "gameboy_perfect_core")
 
-add_library(gameboy_perfect_core SHARED
+# Include directories
+include_directories(
+    include
+    src
+    src/common
+    src/gb
+    src/gba
+)
+
+# Core common sources
+set(COMMON_SOURCES
+    src/common/core_state.c
+    src/common/timing.c
+    src/common/libretro.c
+    src/common/audio.c
+)
+
+# GB sources
+set(GB_SOURCES
+    src/gb/cpu.c
+    src/gb/mmu.c
+    src/gb/ppu.c
+    src/gb/gb_apu.c
+)
+
+# GBA sources
+set(GBA_SOURCES
+    src/gba/cpu_stub.c
+    src/gba/mmu.c
+    src/gba/ppu.c
+    src/gba/gba_apu.c
+)
+
+# Combine all sources
+set(ALL_SOURCES
     ${COMMON_SOURCES}
     ${GB_SOURCES}
     ${GBA_SOURCES}
 )
 
-# include paths (add include/ and source dirs)
-target_include_directories(gameboy_perfect_core PRIVATE
-    ${INCLUDE_DIR}
-    ${SRC_DIR}/common
-    ${SRC_DIR}/gb
-    ${SRC_DIR}/gba
-)
+# Shared library (libretro core)
+add_library(${LIB_NAME} SHARED ${ALL_SOURCES})
 
-set_target_properties(gameboy_perfect_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
+# Compiler flags
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(${LIB_NAME} PRIVATE -Wall -Wextra -O2)
+endif()
+
+# Define macro for libretro build
+target_compile_definitions(${LIB_NAME} PRIVATE -DLIBRETRO)
+
+# Set output name for RetroArch
+set_target_properties(${LIB_NAME} PROPERTIES PREFIX "lib" SUFFIX ".so")

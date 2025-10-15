@@ -1,16 +1,10 @@
-#ifndef MMU_H
-#define MMU_H
+#ifndef GB_MMU_H
+#define GB_MMU_H
 
-#include <stdint.h>
-#include <stddef.h>
-#include "core_common.h"
+typedef struct gb_mmu_s {
+    unsigned char memory[0x10000]; // 64KB memory
+} gb_mmu_t;
 
-void mmu_init(core_mode_t mode, const uint8_t *rom, size_t rom_size);
-uint8_t mmu_read8(uint32_t addr);
-void mmu_write8(uint32_t addr, uint8_t val);
+void gb_mmu_reset(gb_mmu_t *mmu);
 
-// For convenience in CPU stubs
-const uint8_t* mmu_get_rom_ptr(void);
-size_t mmu_get_rom_size(void);
-
-#endif // MMU_H
+#endif // GB_MMU_H
