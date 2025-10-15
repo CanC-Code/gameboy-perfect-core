@@ -1,60 +1,64 @@
 #include "gb_apu.h"
 #include <string.h>
+#include <math.h>
 
-// Minimalistic square wave example
-typedef struct {
-    uint16_t phase;
-    uint16_t period;
-    uint8_t duty;
-    uint8_t volume;
-} gb_channel_t;
-
-static gb_channel_t ch1, ch2, ch3, ch4;
+// Sample rate
+#define GB_SAMPLE_RATE 44100
+#define GB_CPU_FREQ 4194304 // 4.194304 MHz
 
 void gb_apu_init(gb_apu_t *apu) {
     memset(apu, 0, sizeof(gb_apu_t));
-    gb_apu_reset(apu);
+    apu->square1.enabled = false;
+    apu->square2.enabled = false;
+    apu->wave.enabled = false;
+    apu->noise.enabled = false;
 }
 
 void gb_apu_reset(gb_apu_t *apu) {
-    memset(&ch1, 0, sizeof(ch1));
-    memset(&ch2, 0, sizeof(ch2));
-    memset(&ch3, 0, sizeof(ch3));
-    memset(&ch4, 0, sizeof(ch4));
-    apu->sample_count = 0;
+    gb_apu_init(apu);
 }
 
-// Step one CPU cycle
-void gb_apu_step(gb_apu_t *apu, uint16_t cycles) {
-    for (uint16_t i = 0; i < cycles; i++) {
-        // Simple square wave synthesis for demonstration
-        int16_t sample = 0;
+static int generate_square(int phase, uint8_t duty) {
+    // duty: 0-3 (12.5%, 25%, 50%, 75%)
+    static const float duty_table[4][8] = {
+        {1,0,0,0,0,0,0,0}, // 12.5%
+        {1,1,0,0,0,0,0,0}, // 25%
+        {1,1,1,1,0,0,0,0}, // 50%
+        {0,1,1,1,1,1,1,0}  // 75%
+    };
+    return duty_table[duty & 3][phase & 7] ? 1 : -1;
+}
 
-        // Channel 1
-        ch1.phase += 1;
-        if (ch1.phase >= ch1.period) ch1.phase = 0;
-        sample += ((ch1.phase * 8 / ch1.period) < ch1.duty ? ch1.volume : -ch1.volume);
+static int generate_noise(int phase) {
+    // Simple pseudo-random noise
+    return ((phase & 1) ? 1 : -1);
+}
 
-        // Channel 2
-        ch2.phase += 1;
-        if (ch2.phase >= ch2.period) ch2.phase = 0;
-        sample += ((ch2.phase * 8 / ch2.period) < ch2.duty ? ch2.volume : -ch2.volume);
+void gb_apu_step(gb_apu_t *apu, int cycles) {
+    for (int i = 0; i < cycles; i++) {
+        // Advance phase for each channel
+        if (apu->square1.enabled) apu->square1.phase++;
+        if (apu->square2.enabled) apu->square2.phase++;
+        if (apu->wave.enabled) apu->wave.phase++;
+        if (apu->noise.enabled) apu->noise.phase++;
 
-        // Channel 3 (wave)
-        ch3.phase += 1;
-        if (ch3.phase >= ch3.period) ch3.phase = 0;
-        sample += ((ch3.phase * 8 / ch3.period) < ch3.duty ? ch3.volume : -ch3.volume);
+        // Simple mixing
+        int sample = 0;
+        if (apu->square1.enabled) sample += generate_square(apu->square1.phase, apu->square1.duty) * apu->square1.volume;
+        if (apu->square2.enabled) sample += generate_square(apu->square2.phase, apu->square2.duty) * apu->square2.volume;
+        if (apu->wave.enabled)   sample += apu->wave.enabled ? apu->wave.volume : 0;
+        if (apu->noise.enabled)  sample += generate_noise(apu->noise.phase) * apu->noise.volume;
 
-        // Channel 4 (noise)
-        ch4.phase += 1;
-        if (ch4.phase >= ch4.period) ch4.phase = 0;
-        sample += ((ch4.phase * 8 / ch4.period) < ch4.duty ? ch4.volume : -ch4.volume);
-
-        // Push to buffer
-        if (apu->sample_count < AUDIO_BUFFER_SIZE) {
-            apu->sample_buffer[apu->sample_count++] = sample;
-        } else {
-            apu->sample_count = 0; // reset to avoid overflow
+        // Write to buffer
+        if (apu->buffer_pos < GB_AUDIO_BUFFER_SIZE) {
+            apu->buffer[apu->buffer_pos++] = sample;
         }
     }
+}
+
+void gb_apu_mix(gb_apu_t *apu, int16_t *out_buffer, size_t samples) {
+    for (size_t i = 0; i < samples && i < apu->buffer_pos; i++) {
+        out_buffer[i] = apu->buffer[i];
+    }
+    apu->buffer_pos = 0; // reset buffer
 }
