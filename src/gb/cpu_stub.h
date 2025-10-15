@@ -1,16 +1,22 @@
-#ifndef MMU_H
-#define MMU_H
+#ifndef GB_CPU_STUB_H
+#define GB_CPU_STUB_H
 
 #include <stdint.h>
 #include <stddef.h>
-#include "core_common.h"
+#include <stdbool.h>
 
-void mmu_init(core_mode_t mode, const uint8_t *rom, size_t rom_size);
-uint8_t mmu_read8(uint32_t addr);
-void mmu_write8(uint32_t addr, uint8_t val);
+struct gb_cpu_t {
+    uint16_t pc;
+    uint16_t sp;
+    uint8_t  a, f, b, c, d, e, h, l;
+    bool halted;
+    uint64_t cycles;
+};
 
-// For convenience in CPU stubs
-const uint8_t* mmu_get_rom_ptr(void);
-size_t mmu_get_rom_size(void);
+// Initialize CPU state
+void gb_cpu_init(struct gb_cpu_t *cpu);
 
-#endif // MMU_H
+// Execute one CPU cycle (stub)
+void gb_cpu_step(struct gb_cpu_t *cpu);
+
+#endif // GB_CPU_STUB_H

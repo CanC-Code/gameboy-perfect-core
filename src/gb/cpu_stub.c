@@ -1,16 +1,19 @@
-#ifndef MMU_H
-#define MMU_H
+#include "cpu_stub.h"
+#include <string.h>
 
-#include <stdint.h>
-#include <stddef.h>
-#include "core_common.h"
+void gb_cpu_init(struct gb_cpu_t *cpu) {
+    if (!cpu) return;
+    memset(cpu, 0, sizeof(struct gb_cpu_t));
+    cpu->pc = 0x0100; // Start at typical GB entry point
+    cpu->sp = 0xFFFE;
+    cpu->halted = false;
+    cpu->cycles = 0;
+}
 
-void mmu_init(core_mode_t mode, const uint8_t *rom, size_t rom_size);
-uint8_t mmu_read8(uint32_t addr);
-void mmu_write8(uint32_t addr, uint8_t val);
+void gb_cpu_step(struct gb_cpu_t *cpu) {
+    if (!cpu || cpu->halted) return;
 
-// For convenience in CPU stubs
-const uint8_t* mmu_get_rom_ptr(void);
-size_t mmu_get_rom_size(void);
-
-#endif // MMU_H
+    // Stub: simply increment PC and cycles
+    cpu->pc += 1;
+    cpu->cycles += 4; // assume each stub instruction takes 4 cycles
+}
