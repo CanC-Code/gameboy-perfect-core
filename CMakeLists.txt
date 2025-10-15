@@ -1,29 +1,28 @@
 cmake_minimum_required(VERSION 3.10)
 project(gameboy_perfect_core C)
 
-# Use C11 standard
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Treat warnings as errors
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
-
-# Include directories
-include_directories(
-    ${CMAKE_SOURCE_DIR}/src/common
-)
-
-# Source files
-set(SOURCES
+set(SRC
+    src/common/audio.c
+    src/common/apu.c
     src/common/core_state.c
     src/common/cpu.c
+    src/common/gba_cpu.c
+    src/common/gba_mmu.c
+    src/common/libretro.c
     src/common/ppu.c
-    src/common/apu.c
 )
 
-# Build static library
-add_library(gameboy_perfect_core STATIC ${SOURCES})
+include_directories(
+    include
+    include/libretro-common/include
+)
 
-# Optional: build executable for testing
-# add_executable(test_core src/main.c)
-# target_link_libraries(test_core gameboy_perfect_core)
+add_library(gameboy_perfect_core_libretro SHARED ${SRC})
+
+set_target_properties(gameboy_perfect_core_libretro PROPERTIES
+    PREFIX ""
+    OUTPUT_NAME "gameboy_perfect_core_libretro"
+)

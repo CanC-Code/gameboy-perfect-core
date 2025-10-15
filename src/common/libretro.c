@@ -1,115 +1,140 @@
-#include "libretro.h"
-#include <stdint.h>
-#include <stdbool.h>
+#include <libretro.h>
 #include <stdlib.h>
 #include <string.h>
-
-/* Core headers */
-#include "cpu.h"
-#include "ppu.h"
-#include "apu.h"
-#include "mmu.h"
 #include "core_state.h"
 
-/* Opaque core pointer */
-static core_state_t *gb_core = NULL;
+// Core state
+static core_state_t* state = NULL;
 
-/* RetroArch callbacks */
-static retro_video_refresh_t       video_cb       = (retro_video_refresh_t)NULL;
-static retro_audio_sample_batch_t  audio_batch_cb = (retro_audio_sample_batch_t)NULL;
-static retro_input_poll_t          input_poll_cb  = (retro_input_poll_t)NULL;
-static retro_input_state_t         input_state_cb = (retro_input_state_t)NULL;
+// Libretro callbacks
+static retro_video_refresh_t video_cb;
+static retro_audio_sample_t audio_cb;
+static retro_input_poll_t input_poll_cb;
+static retro_input_state_t input_state_cb;
 
-/* Video buffer */
-static uint16_t frame_buffer[160 * 144];
+// Video buffer
+static uint16_t video_buffer[160 * 144];
 
-/* Audio buffer */
+// Audio buffer (placeholder)
 #define AUDIO_BUFFER_SIZE 2048
 static int16_t audio_buffer[AUDIO_BUFFER_SIZE];
-static size_t audio_buffer_len = 0;
+static size_t audio_index = 0;
 
-/* Callbacks setup */
-void retro_set_video_refresh(retro_video_refresh_t cb)       { video_cb = cb; }
-void retro_set_audio_sample_batch(retro_audio_sample_batch_t cb) { audio_batch_cb = cb; }
-void retro_set_input_poll(retro_input_poll_t cb)            { input_poll_cb = cb; }
-void retro_set_input_state(retro_input_state_t cb)          { input_state_cb = cb; }
-void retro_set_environment(retro_environment_t cb)          { (void)cb; }
+// --- Libretro API functions ---
 
-/* System info */
-void retro_get_system_info(struct retro_system_info *info) {
-    info->library_name     = "Gameboy Perfect Core";
-    info->library_version  = "0.1";
-    info->valid_extensions = "gb|gbc|gba";
-    info->need_fullpath    = false;
-    info->block_extract    = false;
+void retro_init(void) {
+    state = gb_core_create();
 }
 
-void retro_get_system_av_info(struct retro_system_av_info *info) {
-    info->timing.fps         = 60.0;
-    info->timing.sample_rate = 44100.0;
-    info->geometry.base_width  = 160;
-    info->geometry.base_height = 144;
-    info->geometry.max_width   = 160;
-    info->geometry.max_height  = 144;
-    info->geometry.aspect_ratio = 160.0 / 144.0;
+void retro_deinit(void) {
+    if (state) {
+        gb_core_destroy(state);
+        state = NULL;
+    }
 }
 
-/* Core management */
-bool retro_load_game(const struct retro_game_info *game) {
-    if (!game || !game->data || !game->size)
-        return false;
+unsigned retro_api_version(void) {
+    return RETRO_API_VERSION;
+}
 
-    gb_core = gb_core_create();
-    if (!gb_core)
-        return false;
+void retro_set_environment(retro_environment_t cb) {
+    (void)cb;
+}
 
-    gb_core_load_rom(gb_core, game->data, game->size);
+void retro_set_video_refresh(retro_video_refresh_t cb) {
+    video_cb = cb;
+}
+
+void retro_set_audio_sample(retro_audio_sample_t cb) {
+    audio_cb = cb;
+}
+
+void retro_set_audio_sample_batch(retro_audio_sample_batch_t cb) {
+    (void)cb; // not used, simple implementation
+}
+
+void retro_set_input_poll(retro_input_poll_t cb) {
+    input_poll_cb = cb;
+}
+
+void retro_set_input_state(retro_input_state_t cb) {
+    input_state_cb = cb;
+}
+
+void retro_reset(void) {
+    if (state) {
+        gb_cpu_reset(&state->cpu);
+        gb_ppu_reset(&state->ppu);
+        gb_apu_reset(&state->apu);
+    }
+}
+
+// Load a ROM
+bool retro_load_game(const struct retro_game_info *info) {
+    if (!info || !info->data || !info->size) return false;
+
+    gb_core_init(state, (const uint8_t*)info->data, info->size);
     return true;
 }
 
 void retro_unload_game(void) {
-    if (gb_core) {
-        gb_core_destroy(gb_core);
-        gb_core = NULL;
+    // Free ROM data
+    if (state && state->rom) {
+        free(state->rom);
+        state->rom = NULL;
+        state->rom_size = 0;
     }
 }
 
-size_t retro_serialize_size(void) { return 0; }
-bool retro_serialize(void *data_, size_t size) { (void)data_; (void)size; return false; }
-bool retro_unserialize(const void *data_, size_t size) { (void)data_; (void)size; return false; }
-
-/* Cheat stub */
-void retro_cheat_set(unsigned index, bool enabled, const char *code) {
-    (void)index; (void)enabled; (void)code;
-}
-
-/* Run one frame */
+// Main run loop
 void retro_run(void) {
-    if (!gb_core) return;
+    if (!state) return;
 
-    if (input_poll_cb)
-        input_poll_cb();
+    input_poll_cb();
 
-    /* TODO: Map inputs */
+    // Step CPU, PPU, APU until a frame is ready
+    do {
+        int cycles = gb_cpu_step(&state->cpu, state);
+        gb_ppu_step(&state->ppu, cycles);
+        gb_apu_step(&state->apu, cycles);
+    } while (!gb_core_frame_ready(state));
 
-    gb_cpu_step(gb_core);
-    gb_ppu_step(gb_core);
+    // Video callback
+    video_cb(state->ppu.framebuffer, 160, 144, 160 * sizeof(uint16_t));
 
-    gb_ppu_get_frame(gb_core, frame_buffer);
-
-    if (video_cb)
-        video_cb(frame_buffer, 160, 144, 160 * sizeof(uint16_t));
-
-    audio_buffer_len = AUDIO_BUFFER_SIZE;
-    gb_apu_step(gb_core, audio_buffer, &audio_buffer_len);
-
-    if (audio_batch_cb && audio_buffer_len)
-        audio_batch_cb(audio_buffer, audio_buffer_len);
+    // Audio callback placeholder
+    audio_cb(0, 0);
 }
 
-bool retro_load_game_special(unsigned type, const struct retro_game_info *info, size_t num) {
-    (void)type; (void)info; (void)num;
+size_t retro_serialize_size(void) {
+    return 0; // Not implemented
+}
+
+bool retro_serialize(void *data, size_t size) {
     return false;
 }
 
-unsigned retro_get_region(void) { return RETRO_REGION_NTSC; }
+bool retro_unserialize(const void *data, size_t size) {
+    return false;
+}
+
+void retro_cheat_reset(void) {}
+void retro_cheat_set(unsigned index, bool enabled, const char *code) {}
+void retro_get_system_info(struct retro_system_info *info) {
+    memset(info, 0, sizeof(*info));
+    info->library_name = "GameBoy Perfect Core";
+    info->library_version = "1.0";
+    info->valid_extensions = "gb|gbc";
+    info->need_fullpath = false;
+    info->block_extract = false;
+}
+
+void retro_get_system_av_info(struct retro_system_av_info *info) {
+    info->timing.fps = 59.73;
+    info->timing.sample_rate = 44100.0;
+    info->geometry.base_width = 160;
+    info->geometry.base_height = 144;
+    info->geometry.max_width = 160;
+    info->geometry.max_height = 144;
+    info->geometry.aspect_ratio = 160.0 / 144.0;
+}
