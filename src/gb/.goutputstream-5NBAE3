@@ -1,0 +1,36 @@
+#ifndef GB_APU_H
+#define GB_APU_H
+
+#include <stdint.h>
+#include <stdbool.h>
+
+// Max audio buffer size per frame
+#define GB_AUDIO_BUFFER_SIZE 2048
+
+// GB audio channels
+typedef struct {
+    bool enabled;
+    uint8_t volume;
+    uint16_t frequency;
+    uint16_t length;
+    uint8_t duty;
+    uint8_t envelope;
+    int phase;
+} gb_apu_channel_t;
+
+typedef struct {
+    gb_apu_channel_t square1;
+    gb_apu_channel_t square2;
+    gb_apu_channel_t wave;
+    gb_apu_channel_t noise;
+
+    int16_t buffer[GB_AUDIO_BUFFER_SIZE];
+    size_t buffer_pos;
+} gb_apu_t;
+
+void gb_apu_init(gb_apu_t *apu);
+void gb_apu_reset(gb_apu_t *apu);
+void gb_apu_step(gb_apu_t *apu, int cycles);
+void gb_apu_mix(gb_apu_t *apu, int16_t *out_buffer, size_t samples);
+
+#endif // GB_APU_H
