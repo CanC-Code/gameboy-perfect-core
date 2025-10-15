@@ -1,20 +1,23 @@
 #include "gb_ppu.h"
-#include "../common/core_state.h"
+#include <string.h> // for memset
 
-void gb_ppu_reset(gb_ppu_t *ppu) {
-    ppu->scanline = 0;
-    ppu->mode = 2;
-    for (int i = 0; i < 160 * 144; i++) {
-        ppu->framebuffer[i] = 0xFF; // White
-    }
+void gb_ppu_init(gb_ppu_t *ppu) {
+    if (!ppu) return;
+    memset(ppu, 0, sizeof(gb_ppu_t));
 }
 
-void gb_ppu_tick(gb_ppu_t *ppu) {
-    ppu->scanline++;
-    if (ppu->scanline >= 144) {
-        ppu->mode = 1; // V-Blank
-    } else {
-        ppu->mode = 2; // OAM
-        // Render background/window line
-    }
+void gb_ppu_reset(gb_ppu_t *ppu) {
+    if (!ppu) return;
+    memset(ppu, 0, sizeof(gb_ppu_t));
+}
+
+void gb_ppu_tick(gb_ppu_t *ppu, int cycles) {
+    (void)ppu;
+    (void)cycles;
+    // Stub: placeholder for timing and rendering logic
+}
+
+void gb_ppu_render_scanline(gb_ppu_t *ppu) {
+    (void)ppu;
+    // Stub: would draw one line of pixels to framebuffer
 }

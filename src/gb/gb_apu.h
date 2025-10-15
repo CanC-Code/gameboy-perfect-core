@@ -1,17 +1,24 @@
-#ifndef LIBRETRO_H
-#define LIBRETRO_H
+#ifndef GB_APU_H
+#define GB_APU_H
 
 #include <stdint.h>
-#include <stdbool.h>   // <<-- needed for 'bool'
+#include <stdbool.h>
 
-struct retro_game_geometry {
-    unsigned width;
-    unsigned height;
-    unsigned max_width;
-    unsigned max_height;
-    float aspect_ratio;
-};
+// Simple Game Boy APU (Audio Processing Unit) state
+typedef struct {
+    bool enabled;          // Whether the APU is active
+    int sample_rate;       // Sample output rate (Hz)
+    uint32_t cycles;       // Internal cycle counter
+} gb_apu_t;
 
-typedef bool (*retro_environment_t)(unsigned cmd, void *data);
+// Initialize or reset APU
+void gb_apu_init(gb_apu_t *apu);
+void gb_apu_reset(gb_apu_t *apu);
 
-#endif
+// Run APU for one tick (called every CPU cycle)
+void gb_apu_tick(gb_apu_t *apu);
+
+// Step APU by a number of cycles (used by CPU)
+void gb_apu_step(gb_apu_t *apu, int cycles);
+
+#endif // GB_APU_H

@@ -4,8 +4,9 @@
 #include "../gb/cpu.h"
 #include "../gb/mmu.h"
 #include "../gb/ppu.h"
-#include "../gb/apu.h"
+#include "../gb/gb_apu.h"
 
+// Represents the full emulator system state
 typedef struct core_state_s {
     gb_cpu_t cpu;
     gb_mmu_t mmu;
@@ -13,7 +14,7 @@ typedef struct core_state_s {
     gb_apu_t apu;
 } core_state_t;
 
-// Initialize core
+// Initializes the emulator subsystems
 void core_state_init(core_state_t *state);
 
 #endif // CORE_STATE_H
