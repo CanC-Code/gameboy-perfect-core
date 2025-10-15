@@ -1,3 +1,4 @@
+#include "cpu.h"
 #include "core_state.h"
 #include <stdlib.h>
 #include <string.h>
