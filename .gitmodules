@@ -1,0 +1,3 @@
+[submodule "include/libretro-common"]
+	path = include/libretro-common
+	url = https://github.com/libretro/libretro-common.git
