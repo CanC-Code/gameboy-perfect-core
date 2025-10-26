@@ -1,0 +1,100 @@
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:1:7: error: expected identifier or ‘(’ before ‘|’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:74: error: universal character \u2018 is not valid in an identifier
+    2 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:74: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:100: error: universal character \u2018 is not valid in an identifier
+    2 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:113: error: universal character \u2019 is not valid in an identifier
+    2 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:129: error: unknown type name ‘has’
+    2 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:136: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘member’
+    2 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:136: error: unknown type name ‘member’
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:149: error: universal character \u2018 is not valid in an identifier
+    2 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:2:149: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:3:9: error: stray ‘#’ in program
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:5:95: error: universal character \u2018 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:5:95: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:6:9: error: stray ‘#’ in program
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:8:96: error: universal character \u2018 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:8:96: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:9:86: error: expected ‘)’ before ‘->’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:9:116: error: expected ‘)’ before ‘|’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:9:149: error: expected ‘)’ before ‘(’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:9:168: error: expected identifier or ‘(’ before ‘return’
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:10:7: error: expected identifier or ‘(’ before ‘|’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:74: error: universal character \u2018 is not valid in an identifier
+   11 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:74: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:100: error: universal character \u2018 is not valid in an identifier
+   11 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:113: error: universal character \u2019 is not valid in an identifier
+   11 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:129: error: unknown type name ‘has’
+   11 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:136: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘member’
+   11 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:136: error: unknown type name ‘member’
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:149: error: universal character \u2018 is not valid in an identifier
+   11 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:11:149: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:12:9: error: stray ‘#’ in program
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:14:96: error: universal character \u2018 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:14:96: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:15:60: error: expected ‘)’ before ‘->’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:15:90: error: expected ‘)’ before ‘|’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:15:123: error: expected ‘)’ before ‘(’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:15:142: error: expected identifier or ‘(’ before ‘return’
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:16:7: error: expected identifier or ‘(’ before ‘|’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:74: error: universal character \u2018 is not valid in an identifier
+   18 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:15:31: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:74: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:100: error: universal character \u2018 is not valid in an identifier
+   18 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:15:31: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:113: error: universal character \u2019 is not valid in an identifier
+   18 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:15:31: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:129: error: unknown type name ‘has’
+   18 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:15:31: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:136: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘member’
+   18 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:15:31: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:136: error: unknown type name ‘member’
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:149: error: universal character \u2018 is not valid in an identifier
+   18 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:15:31: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:18:149: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:19:9: error: stray ‘#’ in program
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:21:95: error: universal character \u2018 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:21:95: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:22:9: error: stray ‘#’ in program
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:24:97: error: universal character \u2018 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:24:97: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:25:59: error: expected ‘)’ before ‘|’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:25:92: error: expected ‘)’ before ‘(’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:25:111: error: expected identifier or ‘(’ before ‘return’
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:26:7: error: expected identifier or ‘(’ before ‘|’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:74: error: universal character \u2018 is not valid in an identifier
+   28 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:74: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:100: error: universal character \u2018 is not valid in an identifier
+   28 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:113: error: universal character \u2019 is not valid in an identifier
+   28 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:129: error: unknown type name ‘has’
+   28 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:136: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘member’
+   28 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:136: error: unknown type name ‘member’
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:149: error: universal character \u2018 is not valid in an identifier
+   28 | /home/ubuntu/Desktop/gameboy-perfect-core/src/common/cpu.c:16:33: error: \u2018gb_cpu_t\u2019 {aka \u2018struct gb_cpu_s\u2019} has no member named \u2018freg\u2019
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:28:149: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:29:9: error: stray ‘#’ in program
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:31:95: error: universal character \u2018 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:31:95: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:32:9: error: stray ‘#’ in program
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:34:97: error: universal character \u2018 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:34:97: error: universal character \u2019 is not valid in an identifier
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:35:59: error: expected ‘)’ before ‘|’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:35:92: error: expected ‘)’ before ‘(’ token
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:35:111: error: expected identifier or ‘(’ before ‘return’
+/home/ubuntu/Desktop/gameboy-perfect-core/src/common/apu.h:36:7: error: expected identifier or ‘(’ before ‘|’ token
